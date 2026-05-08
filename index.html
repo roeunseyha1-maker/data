@@ -8,24 +8,30 @@
 
     <style>
         body {
-            /* ប្រើ Kantumruy Pro ជា Font ទូទៅ (មើលទៅទំនើប និងច្បាស់) */
+                body {
             font-family: 'Kantumruy Pro', sans-serif;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            /* ដោះ height: 100vh និង justify-content ចេញ ដើម្បីកុំឱ្យវាទាញមកកណ្តាលពេក */
             margin: 0;
+            padding-top: 50px; /* បន្ថែមចន្លោះពីលើ កំណត់តាមចិត្តអ្នកចង់បាន */
         }
 
         h1 {
-            /* ប្រើ Font 'Moul' សម្រាប់ចំណងជើង (ដូច Khmer OS Muol Light) */
             font-family: 'Moul', serif;
             color: #d35400;
-            font-size: 24px;
-            margin-bottom: 30px;
+            font-size: 28px; /* ពង្រីកអក្សរចំណងជើងឱ្យធំជាងមុនបន្តិច */
+            margin-bottom: 40px; /* បង្កើនចម្ងាយពីចំណងជើងមកប៊ូតុង */
         }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* ចម្ងាយរវាងប៊ូតុងនីមួយៗ */
+        }
+
 
         .btn {
             /* កំណត់ Font ឱ្យប៊ូតុង */
