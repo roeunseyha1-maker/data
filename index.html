@@ -2,12 +2,69 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Data System">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
+
     <title>ប្រព័ន្ធទិន្នន័យ</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
 
-    /* កែប្រែពណ៌ប៊ូតុងឱ្យលេចធ្លោឡើងវិញ */
+    <style>
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            margin: 0;
+            padding-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+
+            /* កូដសម្រាប់ Background (ប្រើឈ្មោះរូបភាពដែលអ្នកមានក្នុង GitHub) */
+            background-image: url('bg-blurred.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+            /* ស្រទាប់ពណ៌សស្ដើងៗពីលើរូបភាព ដើម្បីឱ្យមើលអក្សរច្បាស់ */
+            background-color: rgba(255, 255, 255, 0.4); 
+            background-blend-mode: overlay;
+        }
+
+        h1 {
+            font-family: 'Moul', serif;
+            color: #d35400;
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* ចម្ងាយរវាងប៊ូតុង */
+        }
+
+        .btn {
+            display: block;
+            width: 280px;
+            padding: 16px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        /* បង្ខំឱ្យពណ៌ប៊ូតុងបង្ហាញមកវិញ */
         .blue { 
             background-color: #007bff !important; 
             color: white !important; 
@@ -18,38 +75,19 @@
         }
         .yellow { 
             background-color: #f1c40f !important; 
-            color: #4b0082 !important; /* ពណ៌អក្សរស្វាយដិតលើប៊ូតុងលឿង */
-        }
-
-        /* បន្ថែមស្រមោល និងរចនាប័ទ្មប៊ូតុងឱ្យស្អាត */
-        .btn {
-            display: block;
-            width: 280px;
-            padding: 16px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.25); /* បន្ថែមស្រមោលឱ្យមើលទៅអណ្តែតស្អាត */
-            margin-bottom: 15px;
-            transition: transform 0.2s;
+            color: #4b0082 !important; 
         }
 
         .btn:active {
-            transform: scale(0.95); /* ពេលចុចទៅ ប៊ូតុងរុញចូលបន្តិច */
+            transform: scale(0.95);
         }
-        .blue { background-color: #007bff; }
-        .red { background-color: #ff4d4d; }
-        .yellow { background-color: #f1c40f; }
     </style>
 </head>
 <body>
 
     <h1>ប្រព័ន្ធទិន្នន័យ</h1>
 
-    <div class="container">
-        <a href="https://docs.google.com/spreadsheets/d/1Js9S4F0SZn1pzwgjznk-ze8fWmDRy_HkmVKgnBDdOnE/edit?gid=393522210#gid=393522210" target="_blank" class="btn blue-btn">
+    <div class="container">        <a href="https://docs.google.com/spreadsheets/d/1Js9S4F0SZn1pzwgjznk-ze8fWmDRy_HkmVKgnBDdOnE/edit?gid=393522210#gid=393522210" target="_blank" class="btn blue-btn">
             ជីវប្រវត្តិសិស្សគ្រប់ថ្នាក់
         </a>
 
