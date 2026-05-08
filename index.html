@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Freehand&family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
+    <title>ប្រព័ន្ធទិន្នន័យ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
 
     <style>
         body {
-                body {
-            /* ... កូដដែលមានស្រាប់ ... */
             font-family: 'Kantumruy Pro', sans-serif;
             margin: 0;
             padding-top: 50px;
@@ -17,55 +16,44 @@
             flex-direction: column;
             align-items: center;
 
-            /* កូដសម្រាប់ Background */
-            background-image: url('bg-blurred.jpg'); /* ឈ្មោះរូបភាពដែលព្រាលរួច */
+            /* --- ផ្នែកកូដ CSS សម្រាប់ Background --- */
+            background-image: url('bg-blurred.jpg'); /* ឈ្មោះរូបភាពដែលអ្នកបង្ហោះចូល GitHub */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
             
-            /* អាចថែមOverlayពណ៌សស្ដើងៗឱ្យកាន់តែទាក់ទាញ */
-            background-color: rgba(255, 255, 255, 0.5); 
+            /* ស្រទាប់ពណ៌សស្ដើងៗពីលើរូបភាព ដើម្បីឱ្យមើលអក្សរច្បាស់ */
+            background-color: rgba(255, 255, 255, 0.6); 
             background-blend-mode: overlay;
-        } {
-            font-family: 'Kantumruy Pro', sans-serif;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            /* ដោះ height: 100vh និង justify-content ចេញ ដើម្បីកុំឱ្យវាទាញមកកណ្តាលពេក */
-            margin: 0;
-            padding-top: 50px; /* បន្ថែមចន្លោះពីលើ កំណត់តាមចិត្តអ្នកចង់បាន */
         }
 
         h1 {
             font-family: 'Moul', serif;
             color: #d35400;
-            font-size: 28px; /* ពង្រីកអក្សរចំណងជើងឱ្យធំជាងមុនបន្តិច */
-            margin-bottom: 40px; /* បង្កើនចម្ងាយពីចំណងជើងមកប៊ូតុង */
+            font-size: 28px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
-        
+
         .container {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* ចម្ងាយរវាងប៊ូតុងនីមួយៗ */
+            gap: 15px;
         }
 
-
         .btn {
-            /* កំណត់ Font ឱ្យប៊ូតុង */
-            font-family: 'Kantumruy Pro', sans-serif;
             display: block;
             width: 280px;
             padding: 15px;
-            margin: 10px;
             border-radius: 15px;
             text-decoration: none;
             color: #4b0082;
             font-weight: bold;
             font-size: 18px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
 
         .blue { background-color: #007bff; }
@@ -73,79 +61,11 @@
         .yellow { background-color: #f1c40f; }
     </style>
 </head>
-
-    <link rel="manifest" href="manifest.json">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ប្រព័ន្ធទិន្នន័យ">
-    <link rel="apple-touch-icon" href="icon.png">
-
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="icon.png">
-    <meta name="theme-color" content="#d35400">
-
-    <title>ប្រព័ន្ធទិន្នន័យ</title>
-    </head>    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ប្រព័ន្ធទិន្នន័យ</title>
-    <style>
-        body {
-            font-family: 'Khmer OS Muol Light', 'Khmer OS Battambang', sans-serif;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            margin: 0;
-        }
-
-        h1 {
-            color: #d35400; /* ពណ៌ទឹកក្រូចក្រហម ដូចចំណងជើងរូបភាព */
-            font-size: 28px;
-            margin-bottom: 40px;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 20px; /* ចម្ងាយរវាងប៊ូតុង */
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 15px 25px;
-            border-radius: 12px; /* ធ្វើឱ្យជ្រុងមូលខ្លាំងដូចរូប */
-            text-decoration: none;
-            color: #4b0082; /* ពណ៌អក្សរស្វាយក្រមៅ */
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .btn:hover {
-            transform: scale(1.05); /* ពេលដាក់ Mouse លើ វានឹងរីកធំបន្តិច */
-            opacity: 0.9;
-        }
-
-        /* កំណត់ពណ៌តាមប៊ូតុងនីមួយៗ */
-        .blue-btn { background-color: #007bff; }
-        .red-btn { background-color: #ff4d4d; }
-        .yellow-btn { background-color: #f1c40f; }
-
-    </style>
-</head>
 <body>
 
     <h1>ប្រព័ន្ធទិន្នន័យ</h1>
 
-    <div class="button-container">
+    <div class="container">
         <a href="https://docs.google.com/spreadsheets/d/1Js9S4F0SZn1pzwgjznk-ze8fWmDRy_HkmVKgnBDdOnE/edit?gid=393522210#gid=393522210" target="_blank" class="btn blue-btn">
             ជីវប្រវត្តិសិស្សគ្រប់ថ្នាក់
         </a>
