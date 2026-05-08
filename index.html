@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ប្រព័ន្ធទិន្នន័យ</title>
+    <style>
+        body {
+            font-family: 'Khmer OS Muol Light', 'Khmer OS Battambang', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #d35400; /* ពណ៌ទឹកក្រូចក្រហម ដូចចំណងជើងរូបភាព */
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px; /* ចម្ងាយរវាងប៊ូតុង */
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 25px;
+            border-radius: 12px; /* ធ្វើឱ្យជ្រុងមូលខ្លាំងដូចរូប */
+            text-decoration: none;
+            color: #4b0082; /* ពណ៌អក្សរស្វាយក្រមៅ */
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: scale(1.05); /* ពេលដាក់ Mouse លើ វានឹងរីកធំបន្តិច */
+            opacity: 0.9;
+        }
+
+        /* កំណត់ពណ៌តាមប៊ូតុងនីមួយៗ */
+        .blue-btn { background-color: #007bff; }
+        .red-btn { background-color: #ff4d4d; }
+        .yellow-btn { background-color: #f1c40f; }
+
+    </style>
+</head>
+<body>
+
+    <h1>ប្រព័ន្ធទិន្នន័យ</h1>
+
+    <div class="button-container">
+        <a href="https://docs.google.com/spreadsheets/d/1Js9S4F0SZn1pzwgjznk-ze8fWmDRy_HkmVKgnBDdOnE/edit?gid=393522210#gid=393522210" target="_blank" class="btn blue-btn">
+            ជីវប្រវត្តិសិស្សគ្រប់ថ្នាក់
+        </a>
+
+        <a href="https://docs.google.com/spreadsheets/u/0/d/1tGn2xgAk-zKGIrPA4lyDw1ssVu57e22t4UJkcqTnKxQ/edit" target="_blank" class="btn red-btn">
+            អត្តលេខសិស្ស
+        </a>
+
+        <a href="https://docs.google.com/spreadsheets/d/1PnwL3ZsdLLCKjK5jm9MwPw0Du35MfOXMd1qELAdPIb0/edit?usp=drivesdk" target="_blank" class="btn yellow-btn">
+            របាយការណ៍ស្ដង់ដាគំរូ
+        </a>
+    </div>
+
+</body>
+</html>
