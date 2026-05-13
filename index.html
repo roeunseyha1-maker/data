@@ -15,7 +15,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        body 
+        <div class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <img src="logo.png" alt="Logo" style="height: 40px; margin-left: 50px;">
+</div>
+
+<!-- ផ្ទាំង Sidebar ដែលនឹងលោតចេញមក -->
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleMenu()">&times;</a>
+    <a href="#">ផ្ទាំងគ្រប់គ្រង</a>
+    <a href="#">គ្រូបង្រៀន</a>
+    <a href="#">ថ្នាក់</a>
+    <a href="#">សិស្ស</a>
+</div>
+        {
             font-family: 'Kantumruy Pro', sans-serif;
             margin: 0;
             padding-top: 60px;
@@ -81,6 +99,64 @@
         .btn:active {
             transform: scale(0.95);
         }
+    /* រចនាប័ទ្ម Navbar ខាងលើ */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* រចនាប័ទ្មត្រេបី */
+.menu-icon {
+    width: 25px;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.menu-icon div {
+    width: 100%;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+/* រចនាប័ទ្ម Sidebar */
+.sidebar {
+    height: 100%;
+    width: 0; /* លាក់ Sidebar ជាមុន */
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidebar a {
+    padding: 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidebar a:hover { color: #f1f1f1; }
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}    
     </style>
 </head>
 <body>
@@ -99,6 +175,15 @@
             របាយការណ៍ស្ដង់ដាគំរូ
         </a>
     </div>
-
+<script>
+function toggleMenu() {
+    var sidebar = document.getElementById("mySidebar");
+    if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+    } else {
+        sidebar.style.width = "250px";
+    }
+}
+</script>
 </body>
 </html>
