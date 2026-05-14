@@ -2,40 +2,83 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <title>ព័ត៌មានគ្រូបង្រៀន</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>បញ្ជីគ្រូបង្រៀន</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kantumruy Pro', sans-serif; padding: 20px; background: #f4f4f4; }
-        .card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .back-btn { display: inline-block; padding: 10px 20px; background: #2c3e50; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            margin: 0; padding: 20px;
+            background-color: #f0f2f5;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        h1 { font-family: 'Moul', serif; color: #d35400; font-size: 20px; margin-bottom: 20px; text-align: center; }
+        
+        #teacherData { width: 100%; max-width: 500px; }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #2c3e50;
+        }
+
+        .card table { width: 100%; border-collapse: collapse; }
+        .card th { text-align: left; color: #7f8c8d; font-weight: normal; width: 40%; padding: 5px 0; }
+        .card td { font-weight: bold; color: #2c3e50; padding: 5px 0; }
+
+        .back-btn {
+            display: block; width: 100%; max-width: 500px;
+            padding: 15px; background-color: #2c3e50;
+            color: white; text-align: center; text-decoration: none;
+            border-radius: 12px; font-weight: bold; margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>👨‍🏫 បញ្ជីគ្រូបង្រៀន</h1>
+
+    <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
+
     <div id="teacherData">កំពុងទាញទិន្នន័យ...</div>
+
     <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
 
     <script>
-        // នេះជា ID នៃ Sheet គ្រូបង្រៀនរបស់អ្នក
+        // ប្តូរ ID ទៅតាម Link ដែលអ្នកផ្ញើមក
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        fetch(url)
-            .then(res => res.text())
-            .then(data => {
-                const json = JSON.parse(data.substr(47).slice(0, -2));
+        async function fetchTeachers() {
+            const container = document.getElementById("teacherData");
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                
                 let html = "";
-                json.table.rows.slice(1).forEach(row => {
-                    if(row.c[1]) { // បើមានឈ្មោះគ្រូ
-                        html += `<div class="card">
-                            <strong>ឈ្មោះ៖</strong> ${row.c[1].v}<br>
-                            <strong>តួនាទី៖</strong> ${row.c[3] ? row.c[3].v : '-'}<br>
-                            <strong>ទូរស័ព្ទ៖</strong> ${row.c[4] ? row.c[4].v : '-'}
+                // slice(1) ដើម្បីរំលងជួរ Header នៃ Excel
+                rows.slice(1).forEach(row => {
+                    if (row.c[1] && row.c[1].v) {
+                        html += `
+                        <div class="card">
+                            <table>
+                                <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
+                                <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
+                                <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
+                                <tr><th>ទូរស័ព្ទ</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                            </table>
                         </div>`;
                     }
                 });
-                document.getElementById("teacherData").innerHTML = html;
-            });
+                container.innerHTML = html || "<p>មិនមានទិន្នន័យគ្រូទេ</p>";
+            } catch (error) {
+                container.innerHTML = "<p style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន! សូមពិនិត្យមើលការ Share ក្នុង Sheet របស់អ្នក។</p>";
+            }
+        }
+        fetchTeachers();
     </script>
 </body>
 </html>
