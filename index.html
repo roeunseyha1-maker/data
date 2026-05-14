@@ -9,7 +9,125 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
 
     <style>
-        body {
+        /* រចនាប័ទ្មផ្ទាំង Popup */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 3000; 
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px); /* ធ្វើឱ្យខាងក្រោយព្រាលៗ */
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 450px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from {transform: translateY(-20px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+
+.modal-header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body { padding: 20px; }
+
+/* រចនាតារាង */
+.teacher-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.teacher-table th, .teacher-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.teacher-table th {
+  text-align: left;
+  color: #7f8c8d;
+  width: 35%;
+  font-weight: normal;
+}
+
+.teacher-table td {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.status-active {
+  background-color: #2ecc71;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.modal-footer {
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  text-align: right;
+}
+
+.btn-close-footer {
+  padding: 8px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+        body 
+        <!-- ផ្ទាំង Popup ព័ត៌មានគ្រូ -->
+<div id="teacherModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+        <h2 style="margin:0; font-family: 'Moul', serif; font-size: 20px;">ព័ត៌មានគ្រូបង្រៀន</h2>
+        <span class="close" onclick="closeTeacherInfo()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <table class="teacher-table">
+            <tr>
+                <th>ឈ្មោះគ្រូ</th>
+                <td>រឿន សីហា</td>
+            </tr>
+            <tr>
+                <th>ភេទ</th>
+                <td>ប្រុស</td>
+            </tr>
+            <tr>
+                <th>ថ្ងៃខែឆ្នាំកំណើត</th>
+                <td>០៨/០៧/១៩៩៩</td>
+            </tr>
+            <tr>
+                <th>ទូរស័ព្ទ</th>
+                <td>012 345 678</td>
+            </tr>
+            
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-close-footer" onclick="closeTeacherInfo()">បិទ</button>
+    </div>
+  </div>
+</div>
+        {
             font-family: 'Kantumruy Pro', sans-serif;
             margin: 0;
             padding-top: 100px; /* បន្ថែមចន្លោះពីលើកុំឱ្យជាន់ Navbar */
@@ -64,26 +182,33 @@
             z-index: 2000;
             top: 0;
             left: 0;
-            background-color: #2c3e50;
+            background-color: #2c3e50; /* ពណ៌ប្រផេះក្រម៉ៅដូចក្នុងរូបភាព */
             overflow-x: hidden;
             transition: 0.3s;
             padding-top: 60px;
         }
+
         .sidebar a {
             padding: 15px 25px;
             text-decoration: none;
             font-size: 18px;
-            color: white;
+            color: #ecf0f1; /* ពណ៌អក្សរស */
             display: block;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* បន្ទាត់ខណ្ឌស្ដើងៗ */
+            transition: 0.3s;
         }
+
+        .sidebar a:hover {
+            background-color: #34495e; /* ប្ដូរពណ៌ពេលដាក់ Mouse ពីលើ */
+        }
+
         .sidebar .closebtn {
             position: absolute;
             top: 10px;
-            right: 20px;
-            font-size: 30px;
+            right: 25px;
+            font-size: 36px;
+            border-bottom: none; /* កុំឱ្យមានបន្ទាត់ក្រោមសញ្ញាខ្វែង */
         }
-
         /* --- រចនាប័ទ្មប៊ូតុង --- */
         h1 {
             font-family: 'Moul', serif;
@@ -125,8 +250,8 @@
         <a href="#">🏠 សង្ខេបព័ត៌មាន</a>
         <a href="#">👨‍🏫 គ្រូបង្រៀន</a>
         <a href="#">🏫 ថ្នាក់</a>
-        <a href="#">🧑‍🎓សិស្ស</a>
-        <a href="#">🧑‍🎓សេចក្ដីជូនដំណឹង</a>
+        <a href="#">🧑‍🎓 សិស្ស</a>
+        <a href="#">📢 សេចក្ដីជូនដំណឹង</a>
     </div>
 
     <h1>ប្រព័ន្ធទិន្នន័យ</h1>
@@ -144,6 +269,22 @@
         function closeNav() {
             document.getElementById("mySidebar").style.width = "0";
         }
+        function openTeacherInfo() {
+    document.getElementById("teacherModal").style.display = "block";
+    closeNav(); // បិទ Sidebar នៅពេលផ្ទាំងនេះបើក
+}
+
+function closeTeacherInfo() {
+    document.getElementById("teacherModal").style.display = "none";
+}
+
+// បិទ Popup នៅពេលចុចផ្ទៃខាងក្រៅ
+window.onclick = function(event) {
+    var modal = document.getElementById("teacherModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
     </script>
 
 </body>
