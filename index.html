@@ -142,51 +142,50 @@
     </div>
 
     <script>
-        // --- កំណត់ការបើក/បិទ Sidebar ---
-        function openNav() { document.getElementById("mySidebar").style.width = "260px"; }
-        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+        // ប្តូរ ID ខាងក្រោមនេះឱ្យចំ ID របស់អ្នក
+const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; // <--- បិទភ្ជាប់ ID របស់អ្នកត្រង់នេះ
+const tabName = 'Sheet1'; // <--- ឈ្មោះ Tab ខាងក្រោម (ត្រូវឱ្យដូចក្នុង Sheets បេះបិទ)
 
-        // --- កំណត់ទាញទិន្នន័យពី Google Sheets ---
-        // ចំណុចសំខាន់៖ ប្តូរ 'ID_SHEET_របស់អ្នក' ទៅជា ID ពិតប្រាកដ
-        const sheetId = '1_S7k2r7x06LhVv0rK7WnF4tDqfM2Y3J9r6X5Z6-u8'; 
-        const tabName = 'Sheet1'; 
-        const url = `https://docs.google.com/spreadsheets/d/${e/2PACX-1vReDD4Spd2l7-knpbU29auYD_P5pdbVnqGG9vAjwd2mD0TBIja6ZywYxVPBe19YjmIcRQBTPtWvkGr1/pubhtml}/gviz/tq?tqx=out:json&sheet=${tabName}`;
+function openTeacherInfo() {
+    document.getElementById("teacherModal").style.display = "block";
+    const container = document.getElementById("teacherData");
+    container.innerHTML = "<p style='text-align:center;'>កំពុងទាញទិន្នន័យ...</p>";
+    closeNav();
 
-        function openTeacherInfo() {
-            document.getElementById("teacherModal").style.display = "block";
-            const container = document.getElementById("teacherData");
-            container.innerHTML = "<p style='text-align:center;'>កំពុងទាញទិន្នន័យ...</p>";
-            closeNav();
+    // បង្កើត Link សម្រាប់ទាញទិន្នន័យ
+    const fullUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${tabName}`;
 
-            fetch(url)
-                .then(res => res.text())
-                .then(data => {
-                    const json = JSON.parse(data.substr(47).slice(0, -2));
-                    const rows = json.table.rows;
-                    let html = "";
-
-                    // slice(1) ដើម្បីរំលងចំណងជើងជួរទី១
-                    rows.slice(1).forEach(row => {
-                        if (row.c[1] && row.c[1].v) { // ប្រសិនបើមានឈ្មោះគ្រូ
-                            html += `
-                            <div class="teacher-card">
-                                <table class="teacher-table">
-                                    <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
-                                    <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
-                                    <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
-                                    <tr><th>លេខទូរស័ព្ទ</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
-                                    <tr><th>ថ្ងៃចូលបម្រើការងារ</th><td>${row.c[5] ? row.c[5].f || row.c[5].v : '-'}</td></tr>
-                                </table>
-                            </div>`;
-                        }
-                    });
-                    container.innerHTML = html || "<p style='text-align:center;'>មិនមានទិន្នន័យទេ</p>";
-                })
-                .catch(err => {
-                    container.innerHTML = "<p style='color:red; text-align:center;'>មិនអាចទាញទិន្នន័យបាន! សូមឆែក Link Publish របស់អ្នក។</p>";
-                });
-        }
-
+    fetch(fullUrl)
+        .then(res => res.text())
+        .then(data => {
+            // សម្អាតទិន្នន័យ JSON ដែល Google ផ្ញើមក
+            const jsonString = data.substring(47, data.length - 2);
+            const json = JSON.parse(jsonString);
+            const rows = json.table.rows;
+            
+            let html = "";
+            // slice(1) ដើម្បីរំលងចំណងជើងជួរទី១
+            rows.slice(1).forEach(row => {
+                if (row.c[1] && row.c[1].v) {
+                    html += `
+                    <div class="teacher-card">
+                        <table class="teacher-table">
+                            <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
+                            <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
+                            <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
+                            <tr><th>ទូរស័ព្ទ</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                            <tr><th>ថ្ងៃចូលការងារ</th><td>${row.c[5] ? row.c[5].f || row.c[5].v : '-'}</td></tr>
+                        </table>
+                    </div>`;
+                }
+            });
+            container.innerHTML = html || "<p style='text-align:center;'>មិនមានទិន្នន័យក្នុង Sheets ទេ</p>";
+        })
+        .catch(err => {
+            container.innerHTML = "<p style='color:red; text-align:center;'>មិនអាចទាញទិន្នន័យបាន! សូមពិនិត្យ ID និងការ Share ក្នុង Sheets។</p>";
+            console.error("Error fetching data:", err);
+        });
+}
         function closeTeacherInfo() { document.getElementById("teacherModal").style.display = "none"; }
 
         // ចុចខាងក្រៅ Popup ដើម្បីបិទ
