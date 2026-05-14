@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <title>ព័ត៌មានគ្រូបង្រៀន</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kantumruy Pro', sans-serif; padding: 20px; background: #f4f4f4; }
+        .card { background: white; padding: 15px; margin-bottom: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .back-btn { display: inline-block; padding: 10px 20px; background: #2c3e50; color: white; text-decoration: none; border-radius: 5px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>👨‍🏫 បញ្ជីគ្រូបង្រៀន</h1>
+    <div id="teacherData">កំពុងទាញទិន្នន័យ...</div>
+    <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
+
+    <script>
+        // នេះជា ID នៃ Sheet គ្រូបង្រៀនរបស់អ្នក
+        const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+        fetch(url)
+            .then(res => res.text())
+            .then(data => {
+                const json = JSON.parse(data.substr(47).slice(0, -2));
+                let html = "";
+                json.table.rows.slice(1).forEach(row => {
+                    if(row.c[1]) { // បើមានឈ្មោះគ្រូ
+                        html += `<div class="card">
+                            <strong>ឈ្មោះ៖</strong> ${row.c[1].v}<br>
+                            <strong>តួនាទី៖</strong> ${row.c[3] ? row.c[3].v : '-'}<br>
+                            <strong>ទូរស័ព្ទ៖</strong> ${row.c[4] ? row.c[4].v : '-'}
+                        </div>`;
+                    }
+                });
+                document.getElementById("teacherData").innerHTML = html;
+            });
+    </script>
+</body>
+</html>
