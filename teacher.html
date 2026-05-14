@@ -1,32 +1,90 @@
-async function fetchTeachers() {
-    const container = document.getElementById("teacherData");
-    try {
-        const response = await fetch(url);
-        const text = await response.text();
-        const json = JSON.parse(text.substr(47).slice(0, -2));
-        const rows = json.table.rows;
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>បញ្ជីគ្រូបង្រៀន</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            margin: 0; padding: 20px;
+            background-color: #f0f2f5;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        h1 { font-family: 'Moul', serif; color: #d35400; font-size: 20px; margin-bottom: 20px; text-align: center; }
         
-        let html = "";
-        // លុប .slice(1) ចេញដើម្បីបង្ហាញតាំងពីជួរទី ១ មក
-        rows.forEach(row => {
-            if (row.c[1] && row.c[1].v) {
-                html += `
-                <div class="card">
-                    <table>
-                        <tr><th>ល.រ</th><td>${row.c[0] ? row.c[0].v : '-'}</td></tr>
-                        <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
-                        <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
-                        <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
-                        <tr><th>កម្រិតវប្បធម៌</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
-                        <tr><th>លេខទំនាក់ទំនង</th><td>${row.c[5] ? row.c[5].v : '-'}</td></tr>
-                        <tr><th>ថ្ងៃចូលបម្រើការងារ</th><td>${row.c[6] ? row.c[6].f || row.c[6].v : '-'}</td></tr>
-                    </table>
-                </div>`;
-            }
-        });
-        container.innerHTML = html || "<p>មិនមានទិន្នន័យគ្រូទេ</p>";
-    } catch (error) {
-        container.innerHTML = "<p style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</p>";
-    }
-}
+        #teacherData { width: 100%; max-width: 500px; }
 
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #d35400;
+        }
+
+        .card table { width: 100%; border-collapse: collapse; }
+        .card th { text-align: left; color: #7f8c8d; font-weight: normal; width: 45%; padding: 5px 0; font-size: 14px; }
+        .card td { font-weight: bold; color: #2c3e50; padding: 5px 0; font-size: 14px; }
+
+        .back-btn {
+            display: block; width: 100%; max-width: 500px;
+            padding: 15px; background-color: #2c3e50;
+            color: white; text-align: center; text-decoration: none;
+            border-radius: 12px; font-weight: bold; margin-top: 10px;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
+
+    <div id="teacherData">កំពុងទាញទិន្នន័យ...</div>
+
+    <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
+
+    <script>
+        // ១. ត្រូវដាក់កូដ JavaScript ក្នុងចន្លោះ <script> នេះជានិច្ច
+        const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
+        const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+
+        async function fetchTeachers() {
+            const container = document.getElementById("teacherData");
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                
+                let html = "";
+                // បង្ហាញតាំងពីជួរទី ១ មក (លុប .slice(1) ចេញហើយ)
+                rows.forEach(row => {
+                    if (row.c[1] && row.c[1].v) {
+                        html += `
+                        <div class="card">
+                            <table>
+                                <tr><th>ល.រ</th><td>${row.c[0] ? row.c[0].v : '-'}</td></tr>
+                                <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
+                                <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
+                                <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
+                                <tr><th>កម្រិតវប្បធម៌</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                                <tr><th>លេខទំនាក់ទំនង</th><td>${row.c[5] ? row.c[5].v : '-'}</td></tr>
+                                <tr><th>ថ្ងៃចូលបម្រើការងារ</th><td>${row.c[6] ? row.c[6].f || row.c[6].v : '-'}</td></tr>
+                            </table>
+                        </div>`;
+                    }
+                });
+                container.innerHTML = html || "<p style='text-align:center;'>មិនមានទិន្នន័យគ្រូទេ</p>";
+            } catch (error) {
+                container.innerHTML = "<p style='color:red; text-align:center;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</p>";
+            }
+        }
+        
+        // ហៅមុខងារឱ្យដំណើរការ
+        fetchTeachers();
+    </script>
+</body>
+</html>
