@@ -12,12 +12,12 @@
         body {
             font-family: 'Kantumruy Pro', sans-serif;
             margin: 0;
-            padding-top: 100px; /* បន្ថែមចន្លោះពីលើកុំឱ្យជាន់ Navbar */
+            padding-top: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            background-image: url('bg-blurred.jpg'); /* ឈ្មោះរូបភាព Background របស់អ្នក */
+            background-image: url('bg-blurred.jpg'); /* ប្តូរឈ្មោះរូបភាពតាម GitHub របស់អ្នក */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -25,13 +25,10 @@
             background-blend-mode: overlay;
         }
 
-        /* --- រចនាប័ទ្ម Navbar --- */
+        /* --- Navbar --- */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
+            top: 0; left: 0; width: 100%; height: 60px;
             background: white;
             display: flex;
             align-items: center;
@@ -40,100 +37,83 @@
             z-index: 1000;
         }
 
-        /* ប៊ូតុងត្រេបី */
         .menu-icon {
-            width: 25px;
-            height: 18px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            width: 25px; height: 18px;
+            display: flex; flex-direction: column; justify-content: space-between;
             cursor: pointer;
         }
-        .menu-icon div {
-            width: 100%;
-            height: 3px;
-            background-color: #333;
-            border-radius: 2px;
-        }
+        .menu-icon div { width: 100%; height: 3px; background-color: #333; border-radius: 2px; }
 
-        /* --- រចនាប័ទ្ម Sidebar --- */
+        /* --- Sidebar --- */
         .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            left: 0;
-            background-color: #2c3e50; /* ពណ៌ប្រផេះក្រម៉ៅដូចក្នុងរូបភាព */
+            height: 100%; width: 0;
+            position: fixed; z-index: 2000;
+            top: 0; left: 0;
+            background-color: #2c3e50;
             overflow-x: hidden;
             transition: 0.3s;
             padding-top: 60px;
         }
-
         .sidebar a {
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #ecf0f1; /* ពណ៌អក្សរស */
-            display: block;
-            border-bottom: 0.5px solid rgba(255, 255, 255, 0.1); /* បន្ទាត់ខណ្ឌស្ដើងៗ */
-            transition: 0.3s;
+            padding: 15px 25px; text-decoration: none;
+            font-size: 18px; color: #ecf0f1; display: block;
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
         }
+        .sidebar .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: white; cursor: pointer; }
 
-        .sidebar a:hover {
-            background-color: #34495e; /* ប្ដូរពណ៌ពេលដាក់ Mouse ពីលើ */
-        }
-
-        .sidebar .closebtn {
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            font-size: 36px;
-            border-bottom: none; /* កុំឱ្យមានបន្ទាត់ក្រោមសញ្ញាខ្វែង */
-        }
-        /* --- រចនាប័ទ្មប៊ូតុង --- */
-        h1 {
-            font-family: 'Moul', serif;
-            color: #d35400;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+        /* --- ប៊ូតុងដើម --- */
+        h1 { font-family: 'Moul', serif; color: #d35400; text-align: center; }
         .container { display: flex; flex-direction: column; gap: 15px; }
         .btn {
-            width: 280px;
-            padding: 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            color: white !important;
+            width: 280px; padding: 15px; border-radius: 15px;
+            text-decoration: none; font-weight: bold; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); color: white !important;
         }
         .blue { background-color: #007bff !important; }
         .red { background-color: #ff4d4d !important; }
         .yellow { background-color: #f1c40f !important; color: #4b0082 !important; }
+
+        /* --- Popup Modal --- */
+        .modal {
+            display: none; position: fixed; z-index: 3000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: white; margin: 5% auto; border-radius: 15px;
+            width: 90%; max-width: 450px; overflow: hidden;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+        .modal-header { background: #2c3e50; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .modal-body { padding: 15px; max-height: 450px; overflow-y: auto; }
+        
+        /* តារាងក្នុង Popup */
+        .teacher-card { border: 1px solid #ddd; padding: 10px; border-radius: 10px; margin-bottom: 15px; background: #f9f9f9; }
+        .teacher-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .teacher-table th { text-align: left; color: #7f8c8d; font-weight: normal; padding: 5px 0; width: 40%; }
+        .teacher-table td { font-weight: bold; padding: 5px 0; border-bottom: 1px solid #eee; color: #2c3e50; }
+        .btn-close-pop { background: #e74c3c; color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; float: right; margin: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <!-- Navbar ជាមួយត្រេបី -->
+    <!-- Navbar -->
     <div class="navbar">
         <div class="menu-icon" onclick="openNav()">
-            <div></div>
-            <div></div>
-            <div></div>
+            <div></div><div></div><div></div>
         </div>
         <span style="margin-left: 20px; font-weight: bold; color: #333;">Data System</span>
     </div>
 
     <!-- Sidebar -->
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <span class="closebtn" onclick="closeNav()">&times;</span>
         <a href="#">🏠 សង្ខេបព័ត៌មាន</a>
-        <a href="#">👨‍🏫 គ្រូបង្រៀន</a>
+        <a href="javascript:void(0)" onclick="openTeacherInfo()">👨‍🏫 គ្រូបង្រៀន</a>
         <a href="#">🏫 ថ្នាក់</a>
-        <a href="#">🧑‍🎓សិស្ស</a>
-        <a href="#">📢សេចក្ដីជូនដំណឹង</a>
+        <a href="#">🧑‍🎓 សិស្ស</a>
+        <a href="#">📢 សេចក្ដីជូនដំណឹង</a>
     </div>
 
     <h1>ប្រព័ន្ធទិន្នន័យ</h1>
@@ -144,13 +124,76 @@
         <a href="https://docs.google.com/spreadsheets/d/1PnwL3ZsdLLCKjK5jm9MwPw0Du35MfOXMd1qELAdPIb0/edit?usp=drivesdk" class="btn yellow">របាយការណ៍ស្ដង់ដាគំរូ</a>
     </div>
 
+    <!-- Popup ព័ត៌មានគ្រូ -->
+    <div id="teacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="font-family: 'Moul', serif;">ព័ត៌មានគ្រូបង្រៀន</span>
+                <span style="cursor:pointer; font-size: 24px;" onclick="closeTeacherInfo()">&times;</span>
+            </div>
+            <div class="modal-body" id="teacherData">
+                <!-- ទិន្នន័យពី Sheets នឹងបង្ហាញនៅទីនេះ -->
+                <p style="text-align: center;">កំពុងទាញទិន្នន័យ...</p>
+            </div>
+            <div style="overflow: hidden;">
+                <button class="btn-close-pop" onclick="closeTeacherInfo()">បិទ</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
+        // --- កំណត់ការបើក/បិទ Sidebar ---
+        function openNav() { document.getElementById("mySidebar").style.width = "260px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+        // --- កំណត់ទាញទិន្នន័យពី Google Sheets ---
+        // ចំណុចសំខាន់៖ ប្តូរ 'ID_SHEET_របស់អ្នក' ទៅជា ID ពិតប្រាកដ
+        const sheetId = '1_S7k2r7x06LhVv0rK7WnF4tDqfM2Y3J9r6X5Z6-u8'; 
+        const tabName = 'Sheet1'; 
+        const url = `https://docs.google.com/spreadsheets/d/${e/2PACX-1vReDD4Spd2l7-knpbU29auYD_P5pdbVnqGG9vAjwd2mD0TBIja6ZywYxVPBe19YjmIcRQBTPtWvkGr1/pubhtml}/gviz/tq?tqx=out:json&sheet=${tabName}`;
+
+        function openTeacherInfo() {
+            document.getElementById("teacherModal").style.display = "block";
+            const container = document.getElementById("teacherData");
+            container.innerHTML = "<p style='text-align:center;'>កំពុងទាញទិន្នន័យ...</p>";
+            closeNav();
+
+            fetch(url)
+                .then(res => res.text())
+                .then(data => {
+                    const json = JSON.parse(data.substr(47).slice(0, -2));
+                    const rows = json.table.rows;
+                    let html = "";
+
+                    // slice(1) ដើម្បីរំលងចំណងជើងជួរទី១
+                    rows.slice(1).forEach(row => {
+                        if (row.c[1] && row.c[1].v) { // ប្រសិនបើមានឈ្មោះគ្រូ
+                            html += `
+                            <div class="teacher-card">
+                                <table class="teacher-table">
+                                    <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
+                                    <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
+                                    <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
+                                    <tr><th>លេខទូរស័ព្ទ</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                                    <tr><th>ថ្ងៃចូលបម្រើការងារ</th><td>${row.c[5] ? row.c[5].f || row.c[5].v : '-'}</td></tr>
+                                </table>
+                            </div>`;
+                        }
+                    });
+                    container.innerHTML = html || "<p style='text-align:center;'>មិនមានទិន្នន័យទេ</p>";
+                })
+                .catch(err => {
+                    container.innerHTML = "<p style='color:red; text-align:center;'>មិនអាចទាញទិន្នន័យបាន! សូមឆែក Link Publish របស់អ្នក។</p>";
+                });
         }
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
+
+        function closeTeacherInfo() { document.getElementById("teacherModal").style.display = "none"; }
+
+        // ចុចខាងក្រៅ Popup ដើម្បីបិទ
+        window.onclick = function(event) {
+            var modal = document.getElementById("teacherModal");
+            if (event.target == modal) { modal.style.display = "none"; }
         }
     </script>
-
 </body>
+</html>
