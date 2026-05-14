@@ -22,12 +22,12 @@
             padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-left: 5px solid #2c3e50;
+            border-left: 5px solid #d35400; /* ប្តូរពណ៌ឱ្យដូច Header ក្នុង Sheets របស់អ្នក */
         }
 
         .card table { width: 100%; border-collapse: collapse; }
-        .card th { text-align: left; color: #7f8c8d; font-weight: normal; width: 40%; padding: 5px 0; }
-        .card td { font-weight: bold; color: #2c3e50; padding: 5px 0; }
+        .card th { text-align: left; color: #7f8c8d; font-weight: normal; width: 45%; padding: 5px 0; font-size: 14px; }
+        .card td { font-weight: bold; color: #2c3e50; padding: 5px 0; font-size: 14px; }
 
         .back-btn {
             display: block; width: 100%; max-width: 500px;
@@ -46,7 +46,6 @@
     <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
 
     <script>
-        // ប្តូរ ID ទៅតាម Link ដែលអ្នកផ្ញើមក
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
@@ -59,23 +58,25 @@
                 const rows = json.table.rows;
                 
                 let html = "";
-                // slice(1) ដើម្បីរំលងជួរ Header នៃ Excel
                 rows.slice(1).forEach(row => {
                     if (row.c[1] && row.c[1].v) {
                         html += `
                         <div class="card">
                             <table>
+                                <tr><th>ល.រ</th><td>${row.c[0] ? row.c[0].v : '-'}</td></tr>
                                 <tr><th>ឈ្មោះ</th><td>${row.c[1].v}</td></tr>
                                 <tr><th>ភេទ</th><td>${row.c[2] ? row.c[2].v : '-'}</td></tr>
                                 <tr><th>តួនាទី</th><td>${row.c[3] ? row.c[3].v : '-'}</td></tr>
-                                <tr><th>ទូរស័ព្ទ</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                                <tr><th>កម្រិតវប្បធម៌</th><td>${row.c[4] ? row.c[4].v : '-'}</td></tr>
+                                <tr><th>លេខទំនាក់ទំនង</th><td>${row.c[5] ? row.c[5].v : '-'}</td></tr>
+                                <tr><th>ថ្ងៃចូលបម្រើការងារ</th><td>${row.c[6] ? row.c[6].f || row.c[6].v : '-'}</td></tr>
                             </table>
                         </div>`;
                     }
                 });
                 container.innerHTML = html || "<p>មិនមានទិន្នន័យគ្រូទេ</p>";
             } catch (error) {
-                container.innerHTML = "<p style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន! សូមពិនិត្យមើលការ Share ក្នុង Sheet របស់អ្នក។</p>";
+                container.innerHTML = "<p style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</p>";
             }
         }
         fetchTeachers();
