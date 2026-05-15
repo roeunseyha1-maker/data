@@ -10,6 +10,7 @@
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
             overflow: hidden; 
             background-color: #f8f9fa;
             display: flex;
@@ -17,29 +18,25 @@
             font-family: 'Kantumruy Pro', sans-serif;
         }
 
-        /* ១. ផ្នែកខាងលើដែលនៅនឹងថ្កល់ (Fixed Top Bar) */
-        .top-fixed-section {
+        /* ១. ផ្នែកខាងលើដែលនៅនឹងថ្កល់ (Top Bar) */
+        .top-nav {
             background-color: white;
             padding: 15px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 2000;
         }
 
         .back-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 18px;
-            background-color: #34495e;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #2c3e50;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 14px;
             font-weight: bold;
-            margin-bottom: 10px;
-            transition: 0.3s;
+            margin-bottom: 8px;
         }
-
-        .back-btn:active { transform: scale(0.95); }
 
         h1 { 
             font-family: 'Moul', serif; 
@@ -47,26 +44,25 @@
             font-size: 18px; 
             text-align: center;
             margin: 0;
-            line-height: 1.5;
         }
 
-        /* ២. ផ្នែកតារាងដែលអាចអូសបាន (Scrollable Area) */
+        /* ២. ផ្នែកតារាងដែលអាចអូសបាន (Internal Scroll Area) */
         .scroll-area {
-            flex: 1; /* យកផ្ទៃដែលសល់ពី Header */
-            overflow: auto; /* អូសចុះឡើងបានតែក្នុងប្រអប់នេះ */
-            padding: 15px;
+            flex: 1; /* យកផ្ទៃដែលសល់ទាំងអស់ */
+            overflow-y: auto; /* អូសចុះឡើងតែក្នុងផ្នែកនេះ */
+            padding: 10px;
             -webkit-overflow-scrolling: touch;
         }
 
-        .table-container {
+        .table-card {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             overflow: hidden;
         }
 
         .table-responsive {
-            overflow-x: auto;
+            overflow-x: auto; /* អូសឆ្វេងស្តាំ */
         }
 
         table { 
@@ -75,46 +71,38 @@
             min-width: 850px;
         }
         
-        /* ៣. ក្បាលតារាង (Sticky Header inside Scroll Area) */
+        /* ៣. ក្បាលតារាង (Sticky) - វានឹងឈប់នៅ Top: 0 នៃ scroll-area */
         thead th { 
             position: sticky;
-            top: 0; /* វានឹងឈប់ត្រឹមមាត់ប្រអប់ Scroll */
+            top: 0; 
             background-color: #f39c12; 
             color: black; 
-            padding: 16px 10px; 
-            z-index: 10;
+            padding: 15px 10px; 
+            z-index: 100;
             border-bottom: 2px solid #e67e22;
             font-size: 14px;
         }
 
         tbody td { 
-            padding: 14px 10px; 
-            border-bottom: 1px solid #f0f0f0; 
+            padding: 12px 10px; 
+            border-bottom: 1px solid #eee; 
             text-align: center; 
             font-size: 14px; 
-            color: #333;
         }
 
-        .name-cell { 
-            text-align: left; 
-            font-weight: bold; 
-            padding-left: 20px; 
-            color: #2c3e50; 
-        }
-
+        .name-cell { text-align: left; font-weight: bold; padding-left: 15px; color: #2c3e50; }
         tr:nth-child(even) { background-color: #fafafa; }
-        tr:hover { background-color: #f1f4f9; }
     </style>
 </head>
 <body>
 
-    <div class="top-fixed-section">
+    <div class="top-nav">
         <a href="index.html" class="back-btn">⬅ ត្រឡប់ក្រោយ</a>
         <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
     </div>
 
     <div class="scroll-area">
-        <div class="table-container">
+        <div class="table-card">
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -128,7 +116,7 @@
                             <th>ថ្ងៃចូលបម្រើ</th>
                         </tr>
                     </thead>
-                    <tbody id="listBody">
+                    <tbody id="listData">
                         </tbody>
                 </table>
             </div>
@@ -139,8 +127,8 @@
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function loadTeachers() {
-            const tbody = document.getElementById("listBody");
+        async function fetchTeachers() {
+            const tbody = document.getElementById("listData");
             try {
                 const res = await fetch(url);
                 const text = await res.text();
@@ -149,7 +137,6 @@
                 
                 let html = "";
                 rows.forEach((row, index) => {
-                    // បង្ហាញជួរដែលមានឈ្មោះ (Column B)
                     if (row.c && row.c[1] && row.c[1].v) {
                         let phone = row.c[5] ? row.c[5].v.toString() : '-';
                         if (phone !== '-' && !phone.startsWith('0')) phone = '0' + phone;
@@ -168,10 +155,10 @@
                 });
                 tbody.innerHTML = html;
             } catch (e) {
-                tbody.innerHTML = "<tr><td colspan='7' style='padding:20px; color:red;'>មិនអាចទាញទិន្នន័យបាន! សូមឆែកការតភ្ជាប់អ៊ីនធឺណិត។</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='7'>មិនអាចទាញទិន្នន័យបាន!</td></tr>";
             }
         }
-        loadTeachers();
+        fetchTeachers();
     </script>
 </body>
 </html>
