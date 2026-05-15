@@ -3,156 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន</title>
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - បែបទំនើប</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #f39c12;
+            --bg-color: #f0f2f5;
+            --top-bar-height: 70px;
+        }
+
         body { 
             font-family: 'Kantumruy Pro', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f8f9fa; 
+            background-color: var(--bg-color); 
+            color: #333;
         }
 
-        /* ១. របារប៊ូតុងខាងលើ (Top Bar) */
-        .top-bar {
+        /* ១. របារខាងលើ Fixed ជាប់មាត់អេក្រង់ */
+        .top-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 60px; /* កម្ពស់ថេរ */
+            height: var(--top-bar-height);
             background-color: white;
-            z-index: 2000; /* ឱ្យនៅខ្ពស់ជាងគេបំផុត */
+            z-index: 3000;
             display: flex;
             align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 0 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
 
         .back-btn {
-            padding: 8px 15px;
-            background-color: #2c3e50;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 50px;
             font-weight: bold;
             font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* ២. ផ្នែកក្បាលទំព័រ (Header Section) */
+        .back-btn:hover {
+            background-color: #34495e;
+            transform: translateY(-2px);
+        }
+
+        /* ២. ផ្នែកក្បាលទំព័រ */
+        .page-header {
+            text-align: center;
+            padding: 120px 20px 40px 20px; /* រុញចុះក្រោមឱ្យផុតពី top-nav */
+            background: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
+        }
+
         h1 { 
             font-family: 'Moul', serif; 
             color: #d35400; 
-            text-align: center; 
-            margin-top: 100px; /* រុញចុះក្រោមឱ្យផុតពីប៊ូតុងខាងលើ */
-            margin-bottom: 20px;
-            font-size: 22px;
+            font-size: 24px; 
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         /* ៣. តារាង */
-        .table-container { 
-            width: 95%; 
-            margin: 0 auto 50px auto;
-            overflow-x: auto; 
-            background: white; 
-            border-radius: 8px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        .main-container {
+            width: 95%;
+            max-width: 1200px;
+            margin: -30px auto 50px auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
         }
 
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 850px; 
+            min-width: 900px;
         }
         
-        /* ៤. ក្បាលតារាង Sticky - ចំណុចសំខាន់ដើម្បីកុំឱ្យជាន់គ្នា */
+        /* ៤. ក្បាលតារាង (Sticky) */
         thead th { 
             position: sticky;
-            top: 60px; /* ត្រូវស្មើនឹងកម្ពស់ height របស់ top-bar */
-            background-color: #f39c12; 
-            color: black; 
-            padding: 12px 8px; 
-            border: 1px solid #ddd; 
-            z-index: 1000; /* នៅក្រោម top-bar តែនៅពីលើជួរដេកធម្មតា */
+            top: var(--top-bar-height); /* ឈប់នៅក្រោមរបារប៊ូតុងល្មម */
+            background-color: var(--accent-color); 
+            color: white;
+            font-weight: bold;
+            padding: 18px 10px; 
+            text-transform: uppercase;
+            font-size: 14px;
+            z-index: 1000;
+            border: none;
         }
 
-        td { 
-            padding: 12px 8px; 
-            border: 1px solid #ddd; 
+        tbody td { 
+            padding: 15px 10px; 
+            border-bottom: 1px solid #eee; 
             text-align: center; 
-            font-size: 14px; 
+            font-size: 15px; 
         }
 
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .name-cell { text-align: left; font-weight: bold; padding-left: 15px; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:nth-child(even) { background-color: #fcfcfc; }
+        tbody tr:hover { background-color: #f1f4f7; transition: 0.2s; }
+
+        .name-cell { 
+            text-align: left; 
+            font-weight: bold; 
+            color: var(--primary-color);
+            padding-left: 20px;
+        }
+
+        .badge-role {
+            background: #e8f0fe;
+            color: #1967d2;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
-    </div>
+    <nav class="top-nav">
+        <a href="index.html" class="back-btn">⬅ ត្រឡប់ទៅទំព័រដើម</a>
+    </nav>
 
-    <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
+    <header class="page-header">
+        <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
+    </header>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>ល.រ</th>
-                    <th>ឈ្មោះគ្រូ</th>
-                    <th>ភេទ</th>
-                    <th>តួនាទី</th>
-                    <th>កាំប្រាក់</th>
-                    <th>លេខទំនាក់ទំនង</th>
-                    <th>ថ្ងៃចូលបម្រើការងារ</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <tr><td colspan="7">កំពុងទាញទិន្នន័យ...</td></tr>
-            </tbody>
-        </table>
-    </div>
+    <main class="main-container">
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>ឈ្មោះគ្រូ</th>
+                        <th>ភេទ</th>
+                        <th>តួនាទី</th>
+                        <th>កាំប្រាក់</th>
+                        <th>លេខទំនាក់ទំនង</th>
+                        <th>ថ្ងៃចូលបម្រើ</th>
+                    </tr>
+                </thead>
+                <tbody id="teacherTable">
+                    </tbody>
+            </table>
+        </div>
+    </main>
 
     <script>
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function fetchTeachers() {
-            const tbody = document.getElementById("tableBody");
+        async function loadTeachers() {
+            const tbody = document.getElementById("teacherTable");
             try {
                 const response = await fetch(url);
                 const text = await response.text();
                 const json = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = json.table.rows; // បង្ហាញគ្រប់ជួរ
+                const rows = json.table.rows;
                 
                 let html = "";
                 rows.forEach((row, index) => {
-                    // បង្ហាញតែជួរដែលមានទិន្នន័យឈ្មោះ (Column B)
+                    // ឆែកមើលឈ្មោះគ្រូ (Column B) ដើម្បីកុំឱ្យបង្ហាញជួរទទេ
                     if (row.c && row.c[1] && row.c[1].v) {
                         
-                        // កែសម្រួលលេខទូរស័ព្ទឱ្យមានលេខ 0 ខាងមុខ
+                        // កែសម្រួលលេខទូរស័ព្ទ (Column F)
                         let phone = row.c[5] ? row.c[5].v.toString() : '-';
-                        if (phone !== '-' && !phone.startsWith('0')) { phone = '0' + phone; }
+                        if (phone !== '-' && !phone.startsWith('0')) phone = '0' + phone;
 
                         html += `
                         <tr>
                             <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
                             <td class="name-cell">${row.c[1].v}</td>
                             <td>${row.c[2] ? row.c[2].v : '-'}</td>
-                            <td>${row.c[3] ? row.c[3].v : '-'}</td>
+                            <td><span class="badge-role">${row.c[3] ? row.c[3].v : '-'}</span></td>
                             <td>${row.c[4] ? row.c[4].v : '-'}</td>
-                            <td>${phone}</td>
+                            <td style="color: #27ae60; font-weight: bold;">${phone}</td>
                             <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
                         </tr>`;
                     }
                 });
                 tbody.innerHTML = html;
             } catch (error) {
-                tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='7' style='padding:20px; color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
             }
         }
-        fetchTeachers();
+        loadTeachers();
     </script>
 </body>
 </html>
