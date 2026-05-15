@@ -104,37 +104,42 @@
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function fetchTeachers() {
-            const tbody = document.getElementById("tableBody");
-            try {
-                const response = await fetch(url);
-                const text = await response.text();
-                const json = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = json.table.rows;
-                
-                let html = "";
-                rows.forEach(row => {
-                    if (row.c[1] && row.c[1].v) {
-                        let phone = row.c[5] ? row.c[5].v.toString() : '-';
-                        if (phone !== '-' && !phone.startsWith('0')) { phone = '0' + phone; }
+        // កូដ JavaScript សម្រាប់បង្ហាញគ្រប់ជួរទិន្នន័យ
+async function fetchTeachers() {
+    const tbody = document.getElementById("tableBody");
+    try {
+        const response = await fetch(url);
+        const text = await response.text();
+        const json = JSON.parse(text.substr(47).slice(0, -2));
+        
+        // ប្រើ rows ទាំងអស់ដោយមិនស្លាយ (slice) ចោល
+        const rows = json.table.rows; 
+        
+        let html = "";
+        rows.forEach((row, index) => {
+            // បន្ថែមលក្ខខណ្ឌត្រួតពិនិត្យថាជួរនោះមានទិន្នន័យឈ្មោះ (Column B)
+            if (row.c && row.c[1] && row.c[1].v) {
+                let phone = row.c[5] ? row.c[5].v.toString() : '-';
+                if (phone !== '-' && !phone.startsWith('0')) { phone = '0' + phone; }
 
-                        html += `
-                        <tr>
-                            <td>${row.c[0] ? row.c[0].v : '-'}</td>
-                            <td class="name-cell">${row.c[1].v}</td>
-                            <td>${row.c[2] ? row.c[2].v : '-'}</td>
-                            <td>${row.c[3] ? row.c[3].v : '-'}</td>
-                            <td>${row.c[4] ? row.c[4].v : '-'}</td>
-                            <td>${phone}</td>
-                            <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
-                        </tr>`;
-                    }
-                });
-                tbody.innerHTML = html || "<tr><td colspan='7'>មិនមានទិន្នន័យទេ</td></tr>";
-            } catch (error) {
-                tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
+                html += `
+                <tr>
+                    <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
+                    <td class="name-cell">${row.c[1].v}</td>
+                    <td>${row.c[2] ? row.c[2].v : '-'}</td>
+                    <td>${row.c[3] ? row.c[3].v : '-'}</td>
+                    <td>${row.c[4] ? row.c[4].v : '-'}</td>
+                    <td>${phone}</td>
+                    <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
+                </tr>`;
             }
-        }
+        });
+        tbody.innerHTML = html || "<tr><td colspan='7'>មិនមានទិន្នន័យទេ</td></tr>";
+    } catch (error) {
+        tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
+    }
+}
+
         fetchTeachers();
     </script>
 </body>
