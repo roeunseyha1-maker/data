@@ -3,62 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - បែបទំនើប</title>
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - សម្រេច</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #f39c12;
-            --bg-color: #f0f2f5;
-            --top-bar-height: 70px;
+            --nav-height: 70px; /* កម្ពស់របារខាងលើ */
         }
 
         body { 
             font-family: 'Kantumruy Pro', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: var(--bg-color); 
-            color: #333;
+            background-color: #f0f2f5; 
         }
 
-        /* ១. របារខាងលើ Fixed ជាប់មាត់អេក្រង់ */
+        /* ១. របារប៊ូតុងខាងលើ - កំណត់ឱ្យនៅថេរដាច់ដោយឡែក */
         .top-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: var(--top-bar-height);
-            background-color: white;
-            z-index: 3000;
+            height: var(--nav-height);
+            background: white;
+            z-index: 9999; /* ឱ្យខ្ពស់ជាងគេបំផុត */
             display: flex;
             align-items: center;
-            padding: 0 5%;
+            padding: 0 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
 
         .back-btn {
             padding: 10px 20px;
-            background-color: var(--primary-color);
+            background-color: #2c3e50;
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
             font-size: 14px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .back-btn:hover {
-            background-color: #34495e;
-            transform: translateY(-2px);
-        }
-
-        /* ២. ផ្នែកក្បាលទំព័រ */
-        .page-header {
+        /* ២. ផ្នែកចំណងជើង */
+        .header-bg {
+            background: white;
+            padding: 110px 20px 60px 20px; /* រុញចុះក្រោមឱ្យផុតពីប៊ូតុងខាងលើ */
             text-align: center;
-            padding: 120px 20px 40px 20px; /* រុញចុះក្រោមឱ្យផុតពី top-nav */
-            background: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
         }
 
         h1 { 
@@ -66,21 +55,20 @@
             color: #d35400; 
             font-size: 24px; 
             margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* ៣. តារាង */
-        .main-container {
+        /* ៣. តំបន់តារាង */
+        .main-content {
             width: 95%;
             max-width: 1200px;
-            margin: -30px auto 50px auto;
+            margin: -40px auto 50px auto; /* ឱ្យតារាងរំលែកលើ Background បន្តិច */
             background: white;
-            border-radius: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .table-responsive {
+        .table-wrapper {
             overflow-x: auto;
         }
 
@@ -90,45 +78,26 @@
             min-width: 900px;
         }
         
-        /* ៤. ក្បាលតារាង (Sticky) */
+        /* ៤. ក្បាលតារាង (Header) - ដំណោះស្រាយការជាន់គ្នា */
         thead th { 
             position: sticky;
-            top: var(--top-bar-height); /* ឈប់នៅក្រោមរបារប៊ូតុងល្មម */
-            background-color: var(--accent-color); 
-            color: white;
-            font-weight: bold;
+            top: var(--nav-height); /* ឱ្យវាឈប់នៅក្រោមប៊ូតុងខាងលើល្មម */
+            background-color: #f39c12 !important; 
+            color: black;
             padding: 18px 10px; 
-            text-transform: uppercase;
-            font-size: 14px;
-            z-index: 1000;
-            border: none;
+            z-index: 5000; /* នៅក្រោម top-nav តែនៅពីលើជួរដេកធម្មតា */
+            border-bottom: 2px solid #e67e22;
         }
 
         tbody td { 
             padding: 15px 10px; 
             border-bottom: 1px solid #eee; 
             text-align: center; 
-            font-size: 15px; 
         }
 
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:nth-child(even) { background-color: #fcfcfc; }
-        tbody tr:hover { background-color: #f1f4f7; transition: 0.2s; }
-
-        .name-cell { 
-            text-align: left; 
-            font-weight: bold; 
-            color: var(--primary-color);
-            padding-left: 20px;
-        }
-
-        .badge-role {
-            background: #e8f0fe;
-            color: #1967d2;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
+        tbody tr:hover { background-color: #f8f9fa; }
+        .name-bold { text-align: left; font-weight: bold; color: #2c3e50; padding-left: 20px; }
+        .role-tag { background: #e8f0fe; color: #1967d2; padding: 4px 12px; border-radius: 15px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -137,12 +106,12 @@
         <a href="index.html" class="back-btn">⬅ ត្រឡប់ទៅទំព័រដើម</a>
     </nav>
 
-    <header class="page-header">
+    <div class="header-bg">
         <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
-    </header>
+    </div>
 
-    <main class="main-container">
-        <div class="table-responsive">
+    <div class="main-content">
+        <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -152,21 +121,21 @@
                         <th>តួនាទី</th>
                         <th>កាំប្រាក់</th>
                         <th>លេខទំនាក់ទំនង</th>
-                        <th>ថ្ងៃចូលបម្រើ</th>
+                        <th>ថ្ងៃចូលបម្រើការងារ</th>
                     </tr>
                 </thead>
-                <tbody id="teacherTable">
+                <tbody id="data-list">
                     </tbody>
             </table>
         </div>
-    </main>
+    </div>
 
     <script>
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function loadTeachers() {
-            const tbody = document.getElementById("teacherTable");
+        async function fetchData() {
+            const tbody = document.getElementById("data-list");
             try {
                 const response = await fetch(url);
                 const text = await response.text();
@@ -175,19 +144,16 @@
                 
                 let html = "";
                 rows.forEach((row, index) => {
-                    // ឆែកមើលឈ្មោះគ្រូ (Column B) ដើម្បីកុំឱ្យបង្ហាញជួរទទេ
                     if (row.c && row.c[1] && row.c[1].v) {
-                        
-                        // កែសម្រួលលេខទូរស័ព្ទ (Column F)
                         let phone = row.c[5] ? row.c[5].v.toString() : '-';
                         if (phone !== '-' && !phone.startsWith('0')) phone = '0' + phone;
 
                         html += `
                         <tr>
                             <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
-                            <td class="name-cell">${row.c[1].v}</td>
+                            <td class="name-bold">${row.c[1].v}</td>
                             <td>${row.c[2] ? row.c[2].v : '-'}</td>
-                            <td><span class="badge-role">${row.c[3] ? row.c[3].v : '-'}</span></td>
+                            <td><span class="role-tag">${row.c[3] ? row.c[3].v : '-'}</span></td>
                             <td>${row.c[4] ? row.c[4].v : '-'}</td>
                             <td style="color: #27ae60; font-weight: bold;">${phone}</td>
                             <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
@@ -195,11 +161,11 @@
                     }
                 });
                 tbody.innerHTML = html;
-            } catch (error) {
-                tbody.innerHTML = "<tr><td colspan='7' style='padding:20px; color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
+            } catch (e) {
+                tbody.innerHTML = "<tr><td colspan='7'>កំហុសក្នុងការទាញទិន្នន័យ!</td></tr>";
             }
         }
-        loadTeachers();
+        fetchData();
     </script>
 </body>
 </html>
