@@ -8,40 +8,37 @@
     <style>
         body { font-family: 'Kantumruy Pro', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; }
         
-        /* ១. របារខាងលើសម្រាប់ប៊ូតុង (Fixed) */
-        .top-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: #ffffff;
-            padding: 10px 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-        }
+        /* ១. របារប៊ូតុងខាងលើ */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* កំណត់កម្ពស់ឱ្យច្បាស់លាស់ */
+    background-color: white;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-        .back-btn {
-            padding: 8px 16px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-        .back-btn:hover { background-color: #34495e; }
+/* ២. ក្បាលតារាង (Header) */
+thead th { 
+    position: sticky;
+    top: 60px; /* ត្រូវស្មើនឹងកម្ពស់ height របស់ top-bar ខាងលើ */
+    background-color: #f39c12; 
+    z-index: 1000;
+    padding: 12px 8px;
+    border: 1px solid #ddd;
+}
 
-        /* ២. ចំណងជើង (ទុកចន្លោះពីលើកុំឱ្យបាំង) */
-        h1 { 
-            font-family: 'Moul', serif; 
-            color: #d35400; 
-            text-align: center; 
-            font-size: 20px; 
-            margin-top: 80px; /* រុញចុះក្រោមឱ្យផុតពីប៊ូតុង */
-            margin-bottom: 20px;
-        }
+/* ៣. ចំណងជើង */
+h1 { 
+    margin-top: 90px; /* រុញចំណងជើងចុះមកក្រោម កុំឱ្យប៊ូតុងបាំង */
+    font-family: 'Moul', serif;
+    text-align: center;
+}
 
         /* ៣. តារាង */
         .table-container { 
