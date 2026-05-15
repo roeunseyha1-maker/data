@@ -3,42 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីគ្រូបង្រៀន - ស្អាតបំផុត</title>
+    <title>បញ្ជីគ្រូបង្រៀន - កែសម្រួលរួចរាល់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kantumruy Pro', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; }
-        
-        /* ១. របារប៊ូតុងខាងលើ */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px; /* កំណត់កម្ពស់ឱ្យច្បាស់លាស់ */
-    background-color: white;
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+        /* កំណត់ទម្រង់ទូទៅ */
+        body { 
+            font-family: 'Kantumruy Pro', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8f9fa; 
+        }
 
-/* ២. ក្បាលតារាង (Header) */
-thead th { 
-    position: sticky;
-    top: 60px; /* ត្រូវស្មើនឹងកម្ពស់ height របស់ top-bar ខាងលើ */
-    background-color: #f39c12; 
-    z-index: 1000;
-    padding: 12px 8px;
-    border: 1px solid #ddd;
-}
+        /* ១. របារប៊ូតុងខាងលើ (Fixed) */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px; /* កម្ពស់របារខាងលើ */
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-/* ៣. ចំណងជើង */
-h1 { 
-    margin-top: 90px; /* រុញចំណងជើងចុះមកក្រោម កុំឱ្យប៊ូតុងបាំង */
-    font-family: 'Moul', serif;
-    text-align: center;
-}
+        .back-btn {
+            padding: 10px 18px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ២. ចំណងជើង (រុញចុះក្រោមឱ្យផុតពី Top Bar) */
+        h1 { 
+            font-family: 'Moul', serif; 
+            color: #d35400; 
+            text-align: center; 
+            font-size: 20px; 
+            margin-top: 100px; /* រុញចុះក្រោម ១០០ភិចសែល */
+            margin-bottom: 30px;
+        }
 
         /* ៣. តារាង */
         .table-container { 
@@ -50,24 +60,41 @@ h1 {
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
         }
 
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 850px; 
+        }
         
-        /* ៤. Freeze ក្បាលតារាង (អូសចុះក្រោមនៅតែឃើញ) */
+        /* ៤. ក្បាលតារាង (Sticky) - ឱ្យឈប់នៅក្រោម Top Bar ល្មម */
         thead th { 
             position: sticky;
-            top: 58px; /* កម្ពស់នេះត្រូវស្មើនឹងរបារប៊ូតុងខាងលើ */
+            top: 70px; /* ត្រូវស្មើនឹង height របស់ top-bar */
             background-color: #f39c12; 
             color: black; 
             font-weight: bold; 
-            padding: 12px 8px; 
+            padding: 15px 8px; 
             border: 1px solid #ddd; 
             z-index: 1000;
         }
 
-        td { padding: 12px 8px; border: 1px solid #ddd; text-align: center; font-size: 14px; color: #333; }
+        td { 
+            padding: 12px 8px; 
+            border: 1px solid #ddd; 
+            text-align: center; 
+            font-size: 14px; 
+            color: #333; 
+        }
+
+        /* ជួរដេកឆ្លាស់ពណ៌ និង Highlight ឈ្មោះ */
         tr:nth-child(even) { background-color: #f9f9f9; }
         tr:hover { background-color: #f1f1f1; }
-        .name-cell { text-align: left; font-weight: bold; padding-left: 15px; color: #2c3e50; }
+        .name-cell { 
+            text-align: left; 
+            font-weight: bold; 
+            padding-left: 15px; 
+            color: #2c3e50; 
+        }
     </style>
 </head>
 <body>
@@ -98,45 +125,46 @@ h1 {
     </div>
 
     <script>
+        // កូដទាញទិន្នន័យពី Google Sheets
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        // កូដ JavaScript សម្រាប់បង្ហាញគ្រប់ជួរទិន្នន័យ
-async function fetchTeachers() {
-    const tbody = document.getElementById("tableBody");
-    try {
-        const response = await fetch(url);
-        const text = await response.text();
-        const json = JSON.parse(text.substr(47).slice(0, -2));
-        
-        // ប្រើ rows ទាំងអស់ដោយមិនស្លាយ (slice) ចោល
-        const rows = json.table.rows; 
-        
-        let html = "";
-        rows.forEach((row, index) => {
-            // បន្ថែមលក្ខខណ្ឌត្រួតពិនិត្យថាជួរនោះមានទិន្នន័យឈ្មោះ (Column B)
-            if (row.c && row.c[1] && row.c[1].v) {
-                let phone = row.c[5] ? row.c[5].v.toString() : '-';
-                if (phone !== '-' && !phone.startsWith('0')) { phone = '0' + phone; }
+        async function fetchTeachers() {
+            const tbody = document.getElementById("tableBody");
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
+                
+                let html = "";
+                rows.forEach((row, index) => {
+                    // បង្ហាញគ្រប់ជួរដែលមិនទទេ (រួមទាំងជួរទី ១)
+                    if (row.c && row.c[1] && row.c[1].v) {
+                        
+                        // លម្អិតលេខទូរស័ព្ទឱ្យមានលេខ 0 ខាងមុខ
+                        let phone = row.c[5] ? row.c[5].v.toString() : '-';
+                        if (phone !== '-' && !phone.startsWith('0')) { 
+                            phone = '0' + phone; 
+                        }
 
-                html += `
-                <tr>
-                    <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
-                    <td class="name-cell">${row.c[1].v}</td>
-                    <td>${row.c[2] ? row.c[2].v : '-'}</td>
-                    <td>${row.c[3] ? row.c[3].v : '-'}</td>
-                    <td>${row.c[4] ? row.c[4].v : '-'}</td>
-                    <td>${phone}</td>
-                    <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
-                </tr>`;
+                        html += `
+                        <tr>
+                            <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
+                            <td class="name-cell">${row.c[1].v}</td>
+                            <td>${row.c[2] ? row.c[2].v : '-'}</td>
+                            <td>${row.c[3] ? row.c[3].v : '-'}</td>
+                            <td>${row.c[4] ? row.c[4].v : '-'}</td>
+                            <td>${phone}</td>
+                            <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
+                        </tr>`;
+                    }
+                });
+                tbody.innerHTML = html || "<tr><td colspan='7'>មិនមានទិន្នន័យទេ</td></tr>";
+            } catch (error) {
+                tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
             }
-        });
-        tbody.innerHTML = html || "<tr><td colspan='7'>មិនមានទិន្នន័យទេ</td></tr>";
-    } catch (error) {
-        tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>កំហុស៖ មិនអាចទាញទិន្នន័យបាន!</td></tr>";
-    }
-}
-
+        }
         fetchTeachers();
     </script>
 </body>
