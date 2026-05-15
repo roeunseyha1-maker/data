@@ -2,124 +2,104 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - ដំណោះស្រាយចុងក្រោយ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - ដំណោះស្រាយបញ្ចប់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Kantumruy Pro', sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f4f7f6; 
-        }
-
-        /* ១. របារខាងលើដែលនៅជាប់រហូត (Fixed Nav) */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background-color: white;
+        /* កំណត់ឱ្យអេក្រង់មិនអូសចុះឡើង (Disable Global Scroll) */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; 
+            background-color: #f0f2f5;
             display: flex;
-            align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 2000; /* ឱ្យនៅខ្ពស់ជាងគេ */
-            box-sizing: border-box;
+            flex-direction: column;
         }
 
-        .back-link {
-            text-decoration: none;
-            color: white;
+        /* ១. របារខាងលើ Fixed */
+        .header-fixed {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 8px 18px;
             background-color: #2c3e50;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
             font-size: 14px;
-        }
-
-        /* ២. ផ្នែកចំណងជើង (Header) */
-        .title-section {
-            background-color: white;
-            padding: 80px 20px 20px 20px; /* បន្ថែម Padding ខាងលើឱ្យផុតពី Navbar */
-            text-align: center;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
         }
 
         h1 { 
             font-family: 'Moul', serif; 
             color: #d35400; 
-            font-size: 22px; 
-            margin: 0;
+            font-size: 20px; 
+            text-align: center;
+            margin: 10px 0 0 0;
         }
 
-        /* ៣. តំបន់តារាង */
-        .content-area {
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
+        /* ២. តំបន់ Scroll (Scrollable Container) */
+        .scroll-container {
+            flex: 1; /* យកផ្ទៃដែលនៅសល់ទាំងអស់ */
+            overflow: auto; /* ឱ្យអូសចុះឡើងតែក្នុងផ្នែកនេះ */
+            padding: 10px;
+            -webkit-overflow-scrolling: touch; /* ឱ្យអូសរអិលស្រួលលើ iPhone */
         }
 
-        .table-container { 
-            background: white; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow: hidden; /* ដើម្បីឱ្យ Border ខាងលើស្អាត */
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
 
-        .scrollable-table {
+        .table-wrapper {
             overflow-x: auto;
         }
 
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 800px;
+            min-width: 850px;
         }
         
-        /* ៤. ក្បាលតារាង (Header Table) - កែសម្រួលចំណុចនេះ */
+        /* ៣. ក្បាលតារាង - វានឹងឈប់នៅមាត់ប្រអប់ Scroll មិនមែនមាត់អេក្រង់ទេ */
         thead th { 
             position: sticky;
-            top: 60px; /* ឈប់នៅក្រោម Navbar ល្មម (កម្ពស់ Navbar គឺ 60px) */
+            top: 0; 
             background-color: #f39c12; 
             color: black; 
             padding: 15px 10px; 
-            z-index: 1000;
-            border: 1px solid #e67e22;
+            z-index: 10;
+            border-bottom: 2px solid #e67e22;
         }
 
         td { 
             padding: 12px 10px; 
             border-bottom: 1px solid #eee; 
             text-align: center; 
-            font-size: 14px;
+            font-size: 14px; 
         }
 
-        tr:nth-child(even) { background-color: #fcfcfc; }
-        tr:hover { background-color: #f1f4f9; }
-
-        .name-col { 
-            text-align: left; 
-            font-weight: bold; 
-            color: #2c3e50; 
-            padding-left: 15px;
-        }
+        .name-col { text-align: left; font-weight: bold; padding-left: 15px; color: #2c3e50; }
+        tr:nth-child(even) { background-color: #fafafa; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <a href="index.html" class="back-link">⬅ ត្រឡប់ក្រោយ</a>
-    </div>
-
-    <div class="title-section">
+    <div class="header-fixed">
+        <a href="index.html" class="back-btn">⬅ ត្រឡប់ក្រោយ</a>
         <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
     </div>
 
-    <div class="content-area">
-        <div class="table-container">
-            <div class="scrollable-table">
+    <div class="scroll-container">
+        <div class="table-card">
+            <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
@@ -129,10 +109,10 @@
                             <th>តួនាទី</th>
                             <th>កាំប្រាក់</th>
                             <th>លេខទូរស័ព្ទ</th>
-                            <th>ថ្ងៃចូលបម្រើការងារ</th>
+                            <th>ថ្ងៃចូលបម្រើ</th>
                         </tr>
                     </thead>
-                    <tbody id="teacherRows">
+                    <tbody id="listBody">
                         </tbody>
                 </table>
             </div>
@@ -143,8 +123,8 @@
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function getTeachers() {
-            const tbody = document.getElementById("teacherRows");
+        async function loadData() {
+            const tbody = document.getElementById("listBody");
             try {
                 const res = await fetch(url);
                 const text = await res.text();
@@ -170,11 +150,11 @@
                     }
                 });
                 tbody.innerHTML = html;
-            } catch (err) {
-                tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>មិនអាចទាញទិន្នន័យបាន!</td></tr>";
+            } catch (e) {
+                tbody.innerHTML = "<tr><td colspan='7'>កំហុសក្នុងការទាញទិន្នន័យ!</td></tr>";
             }
         }
-        getTeachers();
+        loadData();
     </script>
 </body>
 </html>
