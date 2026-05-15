@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីគ្រូបង្រៀន - កែសម្រួលកម្រិតខ្ពស់</title>
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
         body { 
@@ -13,43 +13,40 @@
             background-color: #f8f9fa; 
         }
 
-        /* ១. របារខាងលើ Fixed ជាប់មាត់អេក្រង់ */
+        /* ១. របារប៊ូតុងខាងលើ (Top Bar) */
         .top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 65px; 
+            height: 60px; /* កម្ពស់ថេរ */
             background-color: white;
-            z-index: 3000; /* ឱ្យនៅខាងលើគេបង្អស់ */
+            z-index: 2000; /* ឱ្យនៅខ្ពស់ជាងគេបំផុត */
             display: flex;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             box-sizing: border-box;
         }
 
         .back-btn {
-            padding: 8px 16px;
+            padding: 8px 15px;
             background-color: #2c3e50;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 5px;
             font-weight: bold;
+            font-size: 14px;
         }
 
-        /* ២. ផ្នែកចំណងជើង (Header Section) */
-        .header-section {
-            background-color: white;
-            padding: 90px 20px 20px 20px; /* រុញចុះក្រោមឱ្យផុតពី top-bar */
-            text-align: center;
-        }
-
+        /* ២. ផ្នែកក្បាលទំព័រ (Header Section) */
         h1 { 
             font-family: 'Moul', serif; 
             color: #d35400; 
-            font-size: 20px; 
-            margin: 0;
+            text-align: center; 
+            margin-top: 100px; /* រុញចុះក្រោមឱ្យផុតពីប៊ូតុងខាងលើ */
+            margin-bottom: 20px;
+            font-size: 22px;
         }
 
         /* ៣. តារាង */
@@ -59,8 +56,7 @@
             overflow-x: auto; 
             background: white; 
             border-radius: 8px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
         }
 
         table { 
@@ -69,15 +65,15 @@
             min-width: 850px; 
         }
         
-        /* ៤. ក្បាលតារាង (Sticky) - ដោះស្រាយបញ្ហាជាន់គ្នា */
+        /* ៤. ក្បាលតារាង Sticky - ចំណុចសំខាន់ដើម្បីកុំឱ្យជាន់គ្នា */
         thead th { 
             position: sticky;
-            top: 65px; /* ត្រូវស្មើនឹងកម្ពស់ height របស់ top-bar */
+            top: 60px; /* ត្រូវស្មើនឹងកម្ពស់ height របស់ top-bar */
             background-color: #f39c12; 
             color: black; 
-            padding: 15px 8px; 
+            padding: 12px 8px; 
             border: 1px solid #ddd; 
-            z-index: 1000;
+            z-index: 1000; /* នៅក្រោម top-bar តែនៅពីលើជួរដេកធម្មតា */
         }
 
         td { 
@@ -88,7 +84,7 @@
         }
 
         tr:nth-child(even) { background-color: #f9f9f9; }
-        .name-cell { text-align: left; font-weight: bold; padding-left: 15px; color: #2c3e50; }
+        .name-cell { text-align: left; font-weight: bold; padding-left: 15px; }
     </style>
 </head>
 <body>
@@ -97,9 +93,7 @@
         <a href="index.html" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម</a>
     </div>
 
-    <div class="header-section">
-        <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
-    </div>
+    <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
 
     <div class="table-container">
         <table>
@@ -130,11 +124,14 @@
                 const response = await fetch(url);
                 const text = await response.text();
                 const json = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = json.table.rows;
+                const rows = json.table.rows; // បង្ហាញគ្រប់ជួរ
                 
                 let html = "";
                 rows.forEach((row, index) => {
+                    // បង្ហាញតែជួរដែលមានទិន្នន័យឈ្មោះ (Column B)
                     if (row.c && row.c[1] && row.c[1].v) {
+                        
+                        // កែសម្រួលលេខទូរស័ព្ទឱ្យមានលេខ 0 ខាងមុខ
                         let phone = row.c[5] ? row.c[5].v.toString() : '-';
                         if (phone !== '-' && !phone.startsWith('0')) { phone = '0' + phone; }
 
