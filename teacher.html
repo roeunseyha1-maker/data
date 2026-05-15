@@ -3,130 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - សម្រេច</title>
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - ដំណោះស្រាយចុងក្រោយ</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --nav-height: 70px; /* កម្ពស់របារខាងលើ */
-        }
-
         body { 
             font-family: 'Kantumruy Pro', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f0f2f5; 
+            background-color: #f4f7f6; 
         }
 
-        /* ១. របារប៊ូតុងខាងលើ - កំណត់ឱ្យនៅថេរដាច់ដោយឡែក */
-        .top-nav {
+        /* ១. របារខាងលើដែលនៅជាប់រហូត (Fixed Nav) */
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: var(--nav-height);
-            background: white;
-            z-index: 9999; /* ឱ្យខ្ពស់ជាងគេបំផុត */
+            height: 60px;
+            background-color: white;
             display: flex;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2000; /* ឱ្យនៅខ្ពស់ជាងគេ */
             box-sizing: border-box;
         }
 
-        .back-btn {
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
+        .back-link {
             text-decoration: none;
-            border-radius: 50px;
+            color: white;
+            background-color: #2c3e50;
+            padding: 8px 16px;
+            border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
         }
 
-        /* ២. ផ្នែកចំណងជើង */
-        .header-bg {
-            background: white;
-            padding: 110px 20px 60px 20px; /* រុញចុះក្រោមឱ្យផុតពីប៊ូតុងខាងលើ */
+        /* ២. ផ្នែកចំណងជើង (Header) */
+        .title-section {
+            background-color: white;
+            padding: 80px 20px 20px 20px; /* បន្ថែម Padding ខាងលើឱ្យផុតពី Navbar */
             text-align: center;
+            border-bottom: 1px solid #eee;
         }
 
         h1 { 
             font-family: 'Moul', serif; 
             color: #d35400; 
-            font-size: 24px; 
+            font-size: 22px; 
             margin: 0;
         }
 
         /* ៣. តំបន់តារាង */
-        .main-content {
-            width: 95%;
+        .content-area {
+            padding: 20px;
             max-width: 1200px;
-            margin: -40px auto 50px auto; /* ឱ្យតារាងរំលែកលើ Background បន្តិច */
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            overflow: hidden;
+            margin: auto;
         }
 
-        .table-wrapper {
+        .table-container { 
+            background: white; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden; /* ដើម្បីឱ្យ Border ខាងលើស្អាត */
+        }
+
+        .scrollable-table {
             overflow-x: auto;
         }
 
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 900px;
+            min-width: 800px;
         }
         
-        /* ៤. ក្បាលតារាង (Header) - ដំណោះស្រាយការជាន់គ្នា */
+        /* ៤. ក្បាលតារាង (Header Table) - កែសម្រួលចំណុចនេះ */
         thead th { 
             position: sticky;
-            top: var(--nav-height); /* ឱ្យវាឈប់នៅក្រោមប៊ូតុងខាងលើល្មម */
-            background-color: #f39c12 !important; 
-            color: black;
-            padding: 18px 10px; 
-            z-index: 5000; /* នៅក្រោម top-nav តែនៅពីលើជួរដេកធម្មតា */
-            border-bottom: 2px solid #e67e22;
+            top: 60px; /* ឈប់នៅក្រោម Navbar ល្មម (កម្ពស់ Navbar គឺ 60px) */
+            background-color: #f39c12; 
+            color: black; 
+            padding: 15px 10px; 
+            z-index: 1000;
+            border: 1px solid #e67e22;
         }
 
-        tbody td { 
-            padding: 15px 10px; 
+        td { 
+            padding: 12px 10px; 
             border-bottom: 1px solid #eee; 
             text-align: center; 
+            font-size: 14px;
         }
 
-        tbody tr:hover { background-color: #f8f9fa; }
-        .name-bold { text-align: left; font-weight: bold; color: #2c3e50; padding-left: 20px; }
-        .role-tag { background: #e8f0fe; color: #1967d2; padding: 4px 12px; border-radius: 15px; font-size: 13px; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+        tr:hover { background-color: #f1f4f9; }
+
+        .name-col { 
+            text-align: left; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            padding-left: 15px;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <a href="index.html" class="back-btn">⬅ ត្រឡប់ទៅទំព័រដើម</a>
-    </nav>
+    <div class="navbar">
+        <a href="index.html" class="back-link">⬅ ត្រឡប់ក្រោយ</a>
+    </div>
 
-    <div class="header-bg">
+    <div class="title-section">
         <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
     </div>
 
-    <div class="main-content">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ល.រ</th>
-                        <th>ឈ្មោះគ្រូ</th>
-                        <th>ភេទ</th>
-                        <th>តួនាទី</th>
-                        <th>កាំប្រាក់</th>
-                        <th>លេខទំនាក់ទំនង</th>
-                        <th>ថ្ងៃចូលបម្រើការងារ</th>
-                    </tr>
-                </thead>
-                <tbody id="data-list">
-                    </tbody>
-            </table>
+    <div class="content-area">
+        <div class="table-container">
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ល.រ</th>
+                            <th>ឈ្មោះគ្រូ</th>
+                            <th>ភេទ</th>
+                            <th>តួនាទី</th>
+                            <th>កាំប្រាក់</th>
+                            <th>លេខទូរស័ព្ទ</th>
+                            <th>ថ្ងៃចូលបម្រើការងារ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teacherRows">
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -134,11 +143,11 @@
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function fetchData() {
-            const tbody = document.getElementById("data-list");
+        async function getTeachers() {
+            const tbody = document.getElementById("teacherRows");
             try {
-                const response = await fetch(url);
-                const text = await response.text();
+                const res = await fetch(url);
+                const text = await res.text();
                 const json = JSON.parse(text.substr(47).slice(0, -2));
                 const rows = json.table.rows;
                 
@@ -151,9 +160,9 @@
                         html += `
                         <tr>
                             <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
-                            <td class="name-bold">${row.c[1].v}</td>
+                            <td class="name-col">${row.c[1].v}</td>
                             <td>${row.c[2] ? row.c[2].v : '-'}</td>
-                            <td><span class="role-tag">${row.c[3] ? row.c[3].v : '-'}</span></td>
+                            <td>${row.c[3] ? row.c[3].v : '-'}</td>
                             <td>${row.c[4] ? row.c[4].v : '-'}</td>
                             <td style="color: #27ae60; font-weight: bold;">${phone}</td>
                             <td>${row.c[6] ? (row.c[6].f || row.c[6].v) : '-'}</td>
@@ -161,11 +170,11 @@
                     }
                 });
                 tbody.innerHTML = html;
-            } catch (e) {
-                tbody.innerHTML = "<tr><td colspan='7'>កំហុសក្នុងការទាញទិន្នន័យ!</td></tr>";
+            } catch (err) {
+                tbody.innerHTML = "<tr><td colspan='7' style='color:red;'>មិនអាចទាញទិន្នន័យបាន!</td></tr>";
             }
         }
-        fetchData();
+        getTeachers();
     </script>
 </body>
 </html>
