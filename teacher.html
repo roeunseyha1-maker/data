@@ -3,62 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - ដំណោះស្រាយបញ្ចប់</title>
+    <title>បញ្ជីព័ត៌មានគ្រូបង្រៀន - កំណែសម្រេច</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;700&family=Moul&display=swap" rel="stylesheet">
     <style>
-        /* កំណត់ឱ្យអេក្រង់មិនអូសចុះឡើង (Disable Global Scroll) */
+        /* កំណត់អេក្រង់ឱ្យនៅនឹង (Disable Global Scroll) */
         html, body {
             height: 100%;
             margin: 0;
             overflow: hidden; 
-            background-color: #f0f2f5;
+            background-color: #f8f9fa;
             display: flex;
             flex-direction: column;
+            font-family: 'Kantumruy Pro', sans-serif;
         }
 
-        /* ១. របារខាងលើ Fixed */
-        .header-fixed {
-            background: white;
+        /* ១. ផ្នែកខាងលើដែលនៅនឹងថ្កល់ (Fixed Top Bar) */
+        .top-fixed-section {
+            background-color: white;
             padding: 15px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 100;
+            z-index: 1000;
         }
 
         .back-btn {
-            display: inline-block;
-            padding: 8px 18px;
-            background-color: #2c3e50;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 18px;
+            background-color: #34495e;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 14px;
+            font-weight: bold;
             margin-bottom: 10px;
+            transition: 0.3s;
         }
+
+        .back-btn:active { transform: scale(0.95); }
 
         h1 { 
             font-family: 'Moul', serif; 
             color: #d35400; 
-            font-size: 20px; 
+            font-size: 18px; 
             text-align: center;
-            margin: 10px 0 0 0;
+            margin: 0;
+            line-height: 1.5;
         }
 
-        /* ២. តំបន់ Scroll (Scrollable Container) */
-        .scroll-container {
-            flex: 1; /* យកផ្ទៃដែលនៅសល់ទាំងអស់ */
-            overflow: auto; /* ឱ្យអូសចុះឡើងតែក្នុងផ្នែកនេះ */
-            padding: 10px;
-            -webkit-overflow-scrolling: touch; /* ឱ្យអូសរអិលស្រួលលើ iPhone */
+        /* ២. ផ្នែកតារាងដែលអាចអូសបាន (Scrollable Area) */
+        .scroll-area {
+            flex: 1; /* យកផ្ទៃដែលសល់ពី Header */
+            overflow: auto; /* អូសចុះឡើងបានតែក្នុងប្រអប់នេះ */
+            padding: 15px;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .table-card {
+        .table-container {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             overflow: hidden;
         }
 
-        .table-wrapper {
+        .table-responsive {
             overflow-x: auto;
         }
 
@@ -68,38 +75,47 @@
             min-width: 850px;
         }
         
-        /* ៣. ក្បាលតារាង - វានឹងឈប់នៅមាត់ប្រអប់ Scroll មិនមែនមាត់អេក្រង់ទេ */
+        /* ៣. ក្បាលតារាង (Sticky Header inside Scroll Area) */
         thead th { 
             position: sticky;
-            top: 0; 
+            top: 0; /* វានឹងឈប់ត្រឹមមាត់ប្រអប់ Scroll */
             background-color: #f39c12; 
             color: black; 
-            padding: 15px 10px; 
+            padding: 16px 10px; 
             z-index: 10;
             border-bottom: 2px solid #e67e22;
+            font-size: 14px;
         }
 
-        td { 
-            padding: 12px 10px; 
-            border-bottom: 1px solid #eee; 
+        tbody td { 
+            padding: 14px 10px; 
+            border-bottom: 1px solid #f0f0f0; 
             text-align: center; 
             font-size: 14px; 
+            color: #333;
         }
 
-        .name-col { text-align: left; font-weight: bold; padding-left: 15px; color: #2c3e50; }
+        .name-cell { 
+            text-align: left; 
+            font-weight: bold; 
+            padding-left: 20px; 
+            color: #2c3e50; 
+        }
+
         tr:nth-child(even) { background-color: #fafafa; }
+        tr:hover { background-color: #f1f4f9; }
     </style>
 </head>
 <body>
 
-    <div class="header-fixed">
+    <div class="top-fixed-section">
         <a href="index.html" class="back-btn">⬅ ត្រឡប់ក្រោយ</a>
         <h1>👨‍🏫 បញ្ជីព័ត៌មានគ្រូបង្រៀន</h1>
     </div>
 
-    <div class="scroll-container">
-        <div class="table-card">
-            <div class="table-wrapper">
+    <div class="scroll-area">
+        <div class="table-container">
+            <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
@@ -123,7 +139,7 @@
         const sheetId = '1ctpMwkUYNZvZr6d7Chuiq_n-4tsskTNnr7zYI8f_pbg'; 
         const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
-        async function loadData() {
+        async function loadTeachers() {
             const tbody = document.getElementById("listBody");
             try {
                 const res = await fetch(url);
@@ -133,6 +149,7 @@
                 
                 let html = "";
                 rows.forEach((row, index) => {
+                    // បង្ហាញជួរដែលមានឈ្មោះ (Column B)
                     if (row.c && row.c[1] && row.c[1].v) {
                         let phone = row.c[5] ? row.c[5].v.toString() : '-';
                         if (phone !== '-' && !phone.startsWith('0')) phone = '0' + phone;
@@ -140,7 +157,7 @@
                         html += `
                         <tr>
                             <td>${row.c[0] ? row.c[0].v : (index + 1)}</td>
-                            <td class="name-col">${row.c[1].v}</td>
+                            <td class="name-cell">${row.c[1].v}</td>
                             <td>${row.c[2] ? row.c[2].v : '-'}</td>
                             <td>${row.c[3] ? row.c[3].v : '-'}</td>
                             <td>${row.c[4] ? row.c[4].v : '-'}</td>
@@ -151,10 +168,10 @@
                 });
                 tbody.innerHTML = html;
             } catch (e) {
-                tbody.innerHTML = "<tr><td colspan='7'>កំហុសក្នុងការទាញទិន្នន័យ!</td></tr>";
+                tbody.innerHTML = "<tr><td colspan='7' style='padding:20px; color:red;'>មិនអាចទាញទិន្នន័យបាន! សូមឆែកការតភ្ជាប់អ៊ីនធឺណិត។</td></tr>";
             }
         }
-        loadData();
+        loadTeachers();
     </script>
 </body>
 </html>
